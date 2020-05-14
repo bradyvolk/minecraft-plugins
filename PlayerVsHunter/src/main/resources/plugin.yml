@@ -1,0 +1,4 @@
+name: PlayerVsHunter
+version: ${project.version}
+main: com.bradyvolkmann.playervshunter.PlayerVsHunter
+api-version: 1.13
