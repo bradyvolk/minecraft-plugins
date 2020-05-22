@@ -15,14 +15,12 @@ import java.util.ArrayList;
 
 public final class PlayerVsHunter extends JavaPlugin {
 
-    private ArrayList<Player> hunters;
+    private ArrayList<Player> hunters = new ArrayList<>();
     private Player runner;
 
 
     /** Add hunter to the array of hunters */
-    public void setHunter(Player hunter) {
-        hunters.add(hunter);
-    }
+    public void setHunter(Player hunter) { this.hunters.add(hunter); }
 
     /** Set runner player to runner*/
     public void setRunner(Player runner) {
