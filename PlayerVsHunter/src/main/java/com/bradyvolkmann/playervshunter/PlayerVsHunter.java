@@ -11,15 +11,17 @@ import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 
+import java.util.ArrayList;
+
 public final class PlayerVsHunter extends JavaPlugin {
 
-    private Player hunter;
+    private ArrayList<Player> hunters;
     private Player runner;
 
 
-    /** Set hunter player to hunter*/
+    /** Add hunter to the array of hunters */
     public void setHunter(Player hunter) {
-        this.hunter= hunter;
+        hunters.add(hunter);
     }
 
     /** Set runner player to runner*/
@@ -48,7 +50,7 @@ public final class PlayerVsHunter extends JavaPlugin {
             return true;
         } else if (cmd.getName().equalsIgnoreCase("startgame")) {
             // Creating a Listener
-            getServer().getPluginManager().registerEvents(new Listeners(hunter, runner), this);
+            getServer().getPluginManager().registerEvents(new Listeners(hunters, runner), this);
             return true;
         }
 

@@ -12,22 +12,25 @@ import org.bukkit.event.player.PlayerItemHeldEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
+import java.util.ArrayList;
+
 public final class Listeners implements Listener {
 
-    private Player hunter;
+    private ArrayList<Player> hunters;
     private Player runner;
     private Location prevLoc;
 
-    public Listeners(Player hunter, Player runner) {
-        this.hunter= hunter;
+    public Listeners(ArrayList<Player> hunters, Player runner) {
+        this.hunters= hunters;
         this.runner= runner;
     }
 
-    /** Sets the hunter's compass to point towards runner and prints runners Y location
-     * to chat*/
+    /** Sets the hunters's compasses to point towards runner and prints runners Y location
+     * to chat. Also gives hunter a compass if they don't have one. */
     @EventHandler
     public void trackPlayer(PlayerInteractEvent event) {
-        if (event.getPlayer() == hunter) {
+        if (hunters.contains(event.getPlayer())) {
+            Player hunter = event.getPlayer();
             Inventory hunterInv = hunter.getInventory();
             if (!hunterInv.contains(Material.COMPASS)) {
                 hunterInv.addItem(new ItemStack(Material.COMPASS));
@@ -49,18 +52,5 @@ public final class Listeners implements Listener {
             }
         }
 
-
-//        if (event.getPlayer() == hunter) {
-//            Inventory hunterInv = hunter.getInventory();
-//            if (!hunterInv.contains(Material.COMPASS)) {
-//                hunterInv.addItem(new ItemStack(Material.COMPASS));
-//            }
-//            if (hunterInv.getItem(hunter.getInventory().getHeldItemSlot()).getType() ==  Material.COMPASS) {
-//                Location runnerLoc = runner.getLocation();
-//                runnerLoc.getY();
-//                hunter.sendMessage("Runner's Y coordinate: " + runnerLoc.getY());
-//                hunter.setCompassTarget(runnerLoc);
-//            }
-//        }
     }
 }
