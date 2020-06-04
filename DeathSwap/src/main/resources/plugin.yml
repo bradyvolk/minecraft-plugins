@@ -1,0 +1,20 @@
+name: DeathSwap
+version: ${project.version}
+main: com.landonvolkmann.deathswap.DeathSwap
+api-version: 1.13
+commands:
+  setSwapPlayer:
+    description: adds player to death swap game
+    usage: /setSwapPlayer [player]
+    permission: DeathSwap.setSwapPlayer
+    permission-message: You don't have permission
+  startSwapGame:
+    description: Starts the Death Swap Game
+    usage: /startSwapGame
+    permission: DeathSwap.startSwapGame
+    permission-message: You don't have permission
+  endSwapGame:
+    description: Ends the Death Swap Game
+    usage: /endSwapGame
+    permission: DeathSwap.endSwapGame
+    permission-message: You don't have permission
