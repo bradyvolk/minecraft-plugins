@@ -1,2 +1,1 @@
-# minecraft-plugins
-Minecraft plugins created by the Volkmann Brothers
+﻿# minecraft-pluginsMinecraft plugins created by the Volkmann Brothershttps://jd.bukkit.org/
