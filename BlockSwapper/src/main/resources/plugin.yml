@@ -1,0 +1,4 @@
+name: BlockSwapper
+version: ${project.version}
+main: com.bradyvolkmann.blockswapper.BlockSwapper
+api-version: 1.13
