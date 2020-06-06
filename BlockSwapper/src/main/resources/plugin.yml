@@ -2,3 +2,14 @@ name: BlockSwapper
 version: ${project.version}
 main: com.bradyvolkmann.blockswapper.BlockSwapper
 api-version: 1.13
+commands:
+  startBlockSwapper:
+    description: Starts the Block Swapper Game
+    usage: /startBlockSwapper
+    permission: BlockSwapper.startBlockSwapper
+    permission-message: You don't have permission
+  endBlockSwapper:
+    description: Ends the Block Swapper Game
+    usage: /endBlockSwapper
+    permission: BlockSwapper.endBlockSwapper
+    permission-message: You don't have permission
