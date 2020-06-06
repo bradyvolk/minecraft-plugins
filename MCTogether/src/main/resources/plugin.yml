@@ -1,0 +1,4 @@
+name: Mc Together
+version: ${project.version}
+main: com.bradyvolkmann.mctogether.McTogether
+api-version: 1.13
