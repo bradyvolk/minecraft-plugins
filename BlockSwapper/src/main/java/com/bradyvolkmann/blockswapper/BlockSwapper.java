@@ -1,6 +1,5 @@
 package com.bradyvolkmann.blockswapper;
 
-import com.ibm.dtfj.corereaders.Register;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.command.Command;
@@ -11,19 +10,20 @@ import org.bukkit.plugin.RegisteredListener;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitScheduler;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Random;
-import java.util.logging.Handler;
+import java.lang.reflect.Array;
+import java.net.URL;
+import java.util.*;
+import java.io.*;
 
 public final class BlockSwapper extends JavaPlugin {
 
     private ArrayList<Player> players= new ArrayList<>();
-    private final Integer ROUND_LENGTH= 30;
+    private final Integer ROUND_LENGTH= 300;
     private Integer seconds_left= ROUND_LENGTH;
     private int gameID;
     private HashMap<Player, Boolean> blockFound = new HashMap<>();
     private ArrayList<RegisteredListener> registeredListeners;
+    private ArrayList<Material> materials= new ArrayList<>();
 
 
 
@@ -88,9 +88,10 @@ public final class BlockSwapper extends JavaPlugin {
                     } else if (blockFound.keySet().size() == 0) {
                         Bukkit.broadcastMessage("Nobody won?! You're all not good.");
                         endBlockSwapper();
+                    } else {
+                        newRound();
                     }
 
-                    newRound();
                 } else {
                     --seconds_left;
                 }
@@ -125,11 +126,9 @@ public final class BlockSwapper extends JavaPlugin {
     private Material generateRandomBlock() {
         Material material = null;
         Random random = new Random();
-        while(material == null)
-        {
-            material = Material.values()[random.nextInt(Material.values().length)];
-            if(!(material.isBlock()))
-            {
+        while(material == null) {
+            material = materials.get(random.nextInt(materials.size()));
+            if(!(material.isBlock())) {
                 material = null;
             }
         }
@@ -158,14 +157,18 @@ public final class BlockSwapper extends JavaPlugin {
                 players.remove(player);
                 Bukkit.broadcastMessage("Player " + player.getDisplayName() + " has been eliminated!");
             }
-
         }
+        System.out.println("End of loop for registered listeners.");
         registeredListeners= HandlerList.getRegisteredListeners(this);
     }
 
     @Override
     public void onEnable() {
         // Plugin startup logic
+        String[] mats = ListOfMats.mats;
+        for (String mat : mats) {
+            materials.add(Material.getMaterial(mat));
+        }
 
     }
 
