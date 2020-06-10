@@ -10,10 +10,9 @@ import org.bukkit.plugin.RegisteredListener;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitScheduler;
 
-import java.lang.reflect.Array;
-import java.net.URL;
+
 import java.util.*;
-import java.io.*;
+
 
 public final class BlockSwapper extends JavaPlugin {
 
@@ -24,6 +23,7 @@ public final class BlockSwapper extends JavaPlugin {
     private HashMap<Player, Boolean> blockFound = new HashMap<>();
     private ArrayList<RegisteredListener> registeredListeners;
     private ArrayList<Material> materials= new ArrayList<>();
+    private int round = 1;
 
 
 
@@ -117,6 +117,7 @@ public final class BlockSwapper extends JavaPlugin {
         Bukkit.getScheduler().cancelTask(this.gameID);
         Bukkit.broadcastMessage("Block Swapper has ended!");
         seconds_left = ROUND_LENGTH;
+        round = 1;
         HandlerList.unregisterAll();
         players = new ArrayList<>();
         blockFound = new HashMap<>();
@@ -137,6 +138,23 @@ public final class BlockSwapper extends JavaPlugin {
 
     private void newRound() {
         seconds_left = ROUND_LENGTH;
+        round++;
+        if (round >= 5 && round < 10) {
+            Bukkit.broadcastMessage("Let's up the difficulty!");
+            materials.clear();
+            String[] mats = ListOfMatsMedium.mats;
+            for (String mat : mats) {
+                materials.add(Material.getMaterial(mat));
+            }
+        } else if (round >= 10) {
+            Bukkit.broadcastMessage("Ok, this is as hard as it'll get.");
+            materials.clear();
+            String[] mats = ListOfMatsHard.mats;
+            for (String mat : mats) {
+                materials.add(Material.getMaterial(mat));
+            }
+        }
+
         for (RegisteredListener listener : registeredListeners) {
             MyListener myListener = (MyListener) listener.getListener();
             myListener.setTargetBlock(generateRandomBlock());
@@ -158,14 +176,13 @@ public final class BlockSwapper extends JavaPlugin {
                 Bukkit.broadcastMessage("Player " + player.getDisplayName() + " has been eliminated!");
             }
         }
-        System.out.println("End of loop for registered listeners.");
         registeredListeners= HandlerList.getRegisteredListeners(this);
     }
 
     @Override
     public void onEnable() {
         // Plugin startup logic
-        String[] mats = ListOfMats.mats;
+        String[] mats = ListOfMatsEasy.mats;
         for (String mat : mats) {
             materials.add(Material.getMaterial(mat));
         }

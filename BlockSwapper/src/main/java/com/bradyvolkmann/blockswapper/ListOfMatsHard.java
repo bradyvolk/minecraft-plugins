@@ -1,8 +1,6 @@
 package com.bradyvolkmann.blockswapper;
 
-import java.util.ArrayList;
-
-public class ListOfMats {
+public class ListOfMatsHard {
 
     public static String[] mats = {
         "ACACIA_BUTTON",
@@ -346,7 +344,6 @@ public class ListOfMats {
         "OXEYE_DAISY",
         "PACKED_ICE",
         "PEONY",
-        "PETRIFIED_OAK_SLAB",
         "PINK_BED",
         "PINK_CARPET",
         "PINK_CONCRETE",
