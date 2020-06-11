@@ -25,8 +25,8 @@ public final class BlockSwapper extends JavaPlugin {
     private ArrayList<Material> materials= new ArrayList<>();
     private int round = 1;
 
-
-
+    // TODO Break up this command into more methods
+    /** Command for starting block swapper game and ending block swapper game */
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args){
         if (cmd.getName().equalsIgnoreCase("startBlockSwapper")) {
 
@@ -53,7 +53,9 @@ public final class BlockSwapper extends JavaPlugin {
 
             BukkitScheduler scheduler = getServer().getScheduler();
 
+            // Start repeating task that occurs every 20 ticks or 1 second
             this.gameID = scheduler.scheduleSyncRepeatingTask(this, () -> {
+                // For each player, check if player has found their block
                 for (RegisteredListener listener: registeredListeners) {
                     MyListener myListener = (MyListener) listener.getListener();
                     if( myListener.getTargetBlockFound() ) {
@@ -65,6 +67,7 @@ public final class BlockSwapper extends JavaPlugin {
 
                 }
 
+                // If everyone had found their block, start a new round
                 boolean allFound = true;
                 for (boolean val : blockFound.values()) {
                     allFound = allFound && val;
@@ -74,12 +77,14 @@ public final class BlockSwapper extends JavaPlugin {
                     newRound();
                 }
 
-                if (seconds_left <= 10 && seconds_left > 0) {
+                // Begin countdown at 15 seconds left
+                if (seconds_left <= 15 && seconds_left > 0) {
                     Bukkit.broadcastMessage(seconds_left.toString() + " seconds left!");
                 }
                 if (seconds_left == 0) {
                     eliminatePlayers();
 
+                    // Check if their is a winner or if everyone lost,
                     if (blockFound.keySet().size() == 1) {
                         for (Player player : blockFound.keySet()) {
                             Bukkit.broadcastMessage(player.getDisplayName() + " is our champion!");
@@ -100,6 +105,7 @@ public final class BlockSwapper extends JavaPlugin {
             return true;
 
         }
+        // command to end block swapper
         else if (cmd.getName().equalsIgnoreCase("endBlockSwapper")) {
             endBlockSwapper();
         }
@@ -173,6 +179,7 @@ public final class BlockSwapper extends JavaPlugin {
                 HandlerList.unregisterAll(myListener);
                 blockFound.remove(player);
                 players.remove(player);
+                player.setHealth(0.0);
                 Bukkit.broadcastMessage("Player " + player.getDisplayName() + " has been eliminated!");
             }
         }
