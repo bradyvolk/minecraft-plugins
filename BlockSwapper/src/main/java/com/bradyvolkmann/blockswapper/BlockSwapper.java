@@ -127,6 +127,7 @@ public final class BlockSwapper extends JavaPlugin {
         HandlerList.unregisterAll();
         players = new ArrayList<>();
         blockFound = new HashMap<>();
+        materials.clear();
     }
 
     /** Generate random block and return as a material */
