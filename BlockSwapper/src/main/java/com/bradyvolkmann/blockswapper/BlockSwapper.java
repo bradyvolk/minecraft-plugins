@@ -78,7 +78,7 @@ public final class BlockSwapper extends JavaPlugin {
                 }
 
                 // Begin countdown at 15 seconds left
-                if (seconds_left <= 15 && seconds_left > 0) {
+                if (seconds_left <= 20 && seconds_left > 0) {
                     Bukkit.broadcastMessage(seconds_left.toString() + " seconds left!");
                 }
                 if (seconds_left == 0) {
